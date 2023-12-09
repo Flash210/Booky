@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "408331200513",
+    "project_id": "booo-2abdf",
+    "storage_bucket": "booo-2abdf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408331200513:android:a9d4bed81b1cebd65eb800",
+        "android_client_info": {
+          "package_name": "com.example.booky"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp4GU-TiQdlGEO85dY_OQ--ZWCF9_INp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
