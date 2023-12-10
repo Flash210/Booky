@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -21,6 +22,8 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -48,6 +51,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.booky.R
+import com.example.booky.componets.FabContent
+import com.example.booky.componets.ReaderAppBar
+import com.example.booky.componets.titleSection
 import com.example.booky.model.MBook
 import com.example.booky.navigation.ReaderScreens
 import com.google.firebase.auth.FirebaseAuth
@@ -100,8 +106,8 @@ fun HomeContent(
 
 
     Column(
-        modifier = Modifier.padding(2.dp),
-        verticalArrangement = Arrangement.SpaceEvenly,
+        modifier = Modifier.padding(top = 100.dp),
+        verticalArrangement = Arrangement.Top,
     ) {
         Row(
             modifier = Modifier.align(alignment = Alignment.Start)
@@ -110,6 +116,7 @@ fun HomeContent(
             titleSection(labl = "Reading Right Now")
 Spacer(modifier = Modifier.fillMaxWidth(0.7f))
             Column {
+
                 Icon(imageVector = Icons.Filled.AccountCircle,
                     contentDescription = "profile",
                     modifier= Modifier
@@ -140,31 +147,7 @@ Spacer(modifier = Modifier.fillMaxWidth(0.7f))
 
 }
 
-@Composable
-fun titleSection(
-    modifier: Modifier = Modifier,
-    labl: String
-) {
-    Surface(
-        modifier = modifier.padding(
-            start = 5.dp,
-            top = 1.dp
-        )
-    ) {
-        Column {
-            Text(
-                text = labl,
-                style = TextStyle(
-                    color = Color.Black,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 20.sp,
-                    textAlign = TextAlign.Left
-                ),
-            )
-        }
 
-    }
-}
 
 @Composable
 fun ReadingRighNowArea(
@@ -176,80 +159,47 @@ fun ReadingRighNowArea(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ReaderAppBar(
-    title: String,
-    showProfile: Boolean = true,
-    navController: NavController
-) {
-    TopAppBar(
-        title = {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (showProfile) {
-                    Icon(
-                        imageVector = Icons.Default.Favorite,
-                        contentDescription = "Logo",
-                        modifier = Modifier
-                            .clip(
-                                RoundedCornerShape(50.dp)
-                            )
-                            .scale(0.9f)
-                    )
-                }
-                Text(
-                    text = title,
-                    color = Color.Red,
-                    style = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
-                    ),
-                )
-                Spacer(modifier = Modifier.width(150.dp))
-
-
-            }
-        },
-        actions = {
-            IconButton(onClick = {
-                FirebaseAuth.getInstance().signOut().run {
-                    navController.navigate(ReaderScreens.LoginScreen.name)
-                }
-            }) {
-                Icon(
-                    imageVector = Icons.Filled.Lock,
-                    contentDescription = "Log Out ",
-                    tint = Color.Green
-                )
-
-            }
-        },
-
-
-        )
-
-}
 
 @Composable
-fun FabContent(onTap: (String) -> Unit) {
+fun ListCard(
+    book: MBook= MBook( "1","title","author","notes"),
+    onPressdetails:(String)->Unit = {},
+){
 
-    FloatingActionButton(
-        onClick = {
-            onTap("")
+    val context= LocalContext.current
+    val resources=context.resources
+    val displayMetrics=resources.displayMetrics
+    val screenWidth=displayMetrics.widthPixels/displayMetrics.density
 
-        },
-        shape = RoundedCornerShape(50.dp),
 
-        containerColor = Color(0xFF92CBDF),
+val spacing=10.dp
+    Card(
+        shape = RoundedCornerShape(29.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        ),
+        modifier = Modifier
+            .height(245.dp)
+            .width(205.dp)
+            .clickable {
+                onPressdetails.invoke(book.title.toString())
+            }
+    ) {
+        Column (
+            modifier=Modifier.width(screenWidth.dp-(spacing*2)),
+            horizontalAlignment = Alignment.Start,
+        ){
+            Row (
 
-        ) {
-        Icon(
-            imageVector = Icons.Default.Add,
-            contentDescription = "Add a new book",
-            tint = Color.White
-        )
+            ){
+
+            }
+
+        }
+
     }
 
+
+
 }
+
