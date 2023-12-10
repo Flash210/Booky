@@ -71,6 +71,7 @@ dependencies {
 
     // daggger hilt
     implementation("com.google.dagger:hilt-android:2.44")
+    implementation("com.google.firebase:firebase-auth:22.3.0")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
     //  implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0-beta01")
